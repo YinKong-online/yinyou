@@ -1,0 +1,86 @@
+@import 'resetxuanjuese.css';
+@font-face {
+    font-family: 'iconfont';  /* Project id 4797798 */
+    src: 
+         url('//at.alicdn.com/t/c/font_4797798_brcx9papbl.woff2?t=1735468007512') format('woff2'),
+         url('//at.alicdn.com/t/c/font_4797798_brcx9papbl.woff?t=1735468007512') format('woff'),
+         url('//at.alicdn.com/t/c/font_4797798_brcx9papbl.ttf?t=1735468007512') format('truetype');
+}
+
+.nav.fl.fr ul {
+    list-style-type: none; /* 去掉默认的列表样式 */
+    padding: 0; /* 去掉默认的内边距 */
+    margin: 0; /* 去掉默认的外边距 */
+}
+
+.fr ul li {
+    display: inline-block; /* 将列表项水平排列 */
+    margin-right: 20px; /* 添加右侧间距，可以根据需要调整 */
+}
+
+.nav.fr ul li a {
+    text-decoration: none; /* 去掉链接的下划线 */
+    color: black; /* 设置链接颜色，可以根据需要调整 */
+}
+.nav #touxiang{
+    width: 75px;
+    height: 70px;
+}
+.role{
+    font-size: 16px;
+    margin-left: 10px;
+}
+.role-item {
+    display: inline-block;
+    margin: 10px;
+    position: relative;
+}
+.role-info {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 150px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid #ccc;
+    padding: 5px;
+    z-index: 10;
+}
+.role-item img {
+    width: 90px;
+    height: 140px;
+    border: 2px solid transparent;
+    transition: border-color 0.3s;
+}
+.role-item img.selected {
+    border-color: red;
+}
+.start-game{
+    margin-top: 20px;
+    margin-right: 30px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.card{
+    width: 100px;
+    margin: 0 auto;
+    font-family: 'Courier New', Courier, monospace;
+    color: #000;
+    font-style: italic;
+    line-height: 1.8;
+    border-radius: 10px;
+    background: repeating-linear-gradient(
+        -45deg,
+        #ede209 0px 2px,
+        #f8b817 2px 4px,
+        #f1ed0c 4px 5px,
+        #fcc82e 5px 7px
+    ) -10px -10px/200% 200%;
+    padding: 10px;
+    transition: 1s;
+}
+
+.card:hover {
+    background-position: 0 0;
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录 - 音游</title>
+    <script>
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // 假设这里会向后端发送请求验证用户名和密码
+            if (username && password) {
+                localStorage.setItem('username', username); // 存储用户名
+                localStorage.setItem('level', '1'); // 假设等级为1
+                window.location.href = 'index.html'; // 登录成功跳转到首页
+            } else {
+                alert('请输入有效的用户名和密码');
+            }
+        }
+    </script>
+</head>
+<body>
+    <h2>登录</h2>
+    <form onsubmit="event.preventDefault(); login();">
+        <label for="username">用户名:</label>
+        <input type="text" id="username" required><br><br>
+
+        <label for="password">密码:</label>
+        <input type="password" id="password" required><br><br>
+
+        <button type="submit">登录</button>
+    </form>
+</body>
+</html>

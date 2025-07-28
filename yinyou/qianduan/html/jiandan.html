@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>音游-简单</title>
+    <link rel="stylesheet" href="css/index3.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <!--导航栏-->
+    <div class="nav">
+        <div class="fl">
+            <ul>
+                <li><img id="touxiang" src="img/loge.jpg" alt="头像" /></li>
+            </ul>
+        </div>
+        <div class="fl">
+            <ul>
+                <li><h2>用户名</h2></li>
+                <li><h2>等级</h2></li>
+            </ul>
+        </div>
+        <div class="fr" style="margin-right: 20px; margin-top: 10px;">
+            <div style="color: black;">没找到你想要的音乐？</div>
+            <input type="text" placeholder="搜索" style="width: 200px;height: 20px;">
+            <span class="tubiao">&#xe610;</span>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <!--内容-->
+    <div class="yinyue">
+        <span class="tubiao1 fl">&#xe660;</span>
+        <div id="yinyue_title"></div>
+        <span class="tubiao2 fr">&#xe661;</span>
+    </div>
+
+    <script>
+        let yinyue_title = [];
+        let count = 0;
+        let rolesData = []; // 这里确保 rolesData 变量在整个脚本中是可用的
+
+        const params = window.location.search;
+        const urlParams = new URLSearchParams(params);
+
+        // 使用 getAll 获取 namePinyin[] 的所有值
+        const rolesParam = urlParams.getAll('namePinyin[]');
+        console.log('接收到的角色参数:', rolesParam);
+
+        // 如果角色参数存在，将其赋值给 rolesData
+        if (rolesParam.length > 0) {
+            rolesData = rolesParam; // 直接赋值给 rolesData
+            console.log('解析后的角色数据:', rolesData);
+        } else {
+            console.error('没有接收到角色数据');
+        }
+
+        function addMusic_jiandan(imageUrl, name) {
+            const img = document.createElement("img");
+            img.src = imageUrl;
+            img.setAttribute('data-name', name);
+            img.addEventListener("click", function() {
+                const selectedName = this.getAttribute('data-name');
+                if (selectedName) {
+                    // 发送HTTP请求到后端，指定模式为'jiandan'
+                    $.ajax({
+                        url: 'http://localhost:5000/start_game/jiandan',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify({ name: selectedName, roles: rolesData }), // 以 JSON 格式发送数据
+                        success: function(response) {
+                            if (response.error) {
+                                alert(response.error);
+                            } else {
+                                console.log('游戏已启动:', response);
+                            }
+                        },
+                        error: function(error) {
+                            console.error('请求失败:', error);
+                        }
+                    });
+                } else {
+                    alert('请先选择一首歌曲');
+                }
+            });
+            yinyue_title.push(img);
+            updateMusic_jiandan();
+        }
+
+        function updateMusic_jiandan() {
+            const yinyue_title_html = document.getElementById("yinyue_title");
+            yinyue_title_html.innerHTML = "";
+            const numImages = Math.min(4, yinyue_title.length);
+            for (let i = 0; i < numImages; i++) {
+                const index = (count + i) % yinyue_title.length;
+                yinyue_title_html.appendChild(yinyue_title[index]);
+            }
+        }
+        
+        const tubiao1 = document.querySelector(".tubiao1");
+        tubiao1.addEventListener("click", () => {
+            count = (count - 1 + yinyue_title.length) % yinyue_title.length; 
+            updateMusic_jiandan();
+        });
+
+        const tubiao2 = document.querySelector(".tubiao2");
+        tubiao2.addEventListener("click", () => {
+            count = (count + 1) % yinyue_title.length; 
+            updateMusic_jiandan();
+        });
+
+        fetch('https://yinkong-online.github.io/yinyou/chuli.json') 
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('网络响应失败');
+                }
+                return response.json();
+            })
+            .then(data => {
+                data.forEach(item => {
+                    addMusic_jiandan(item.pic, item.name); 
+                });
+            })
+            .catch(error => console.error('加载JSON文件失败:', error));
+    </script>
+</body>
+</html>

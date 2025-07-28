@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>选角色</title>
+    <link rel="stylesheet" href="css\indexxuanjuese.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="nav">
+        <div class="fl">
+            <ul>
+                <li><img id="touxiang" src="img/loge.jpg" alt="头像" /></li>
+            </ul>
+        </div>
+        <div class="fl">
+            <ul>
+                <li><h2>用户名</h2></li>
+                <li><h2>等级</h2></li>
+            </ul>
+        </div>
+    </div>
+    <div class="start-game fr">
+        <a href="#" id="start-game-link"><h2>开始游戏</h2></a>
+    </div>
+    <div class="clearfix"></div>
+    <div class="yiyoujuese fl">
+        <h2>选择角色</h2>
+        <div class="card">
+            <div class="role"></div>            
+        </div>
+    </div>
+    <div class="xiangsi fr">
+        <div><a href="yangcheng.html"></a>123</div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // 定义角色数据的URL
+            const rolesUrl = "../juese_json/yiyoujuese.json";
+    
+            // 使用jQuery的getJSON方法加载角色数据
+            $.getJSON(rolesUrl, function(data) {
+                console.log("加载的角色数据：", data); // 打印加载的 JSON 数据
+    
+                // 遍历角色数据并生成HTML
+                data.forEach(function(role) {
+                    // 检查拼音是否存在
+                    console.log("角色拼音:", role.pinyin);
+    
+                    if (!role.pinyin) {
+                        console.error('拼音字段缺失：', role);
+                    }
+    
+                    const roleDiv = $('<div class="role-item"></div>');
+                    const img = $(`<img src="${role.pic}" alt="${role.name}" data-pinyin="${role.pinyin}" />`);
+    
+                    const roleInfo = $('<div class="role-info"></div>');
+                    roleInfo.append(`<h3>${role.name}</h3>`);
+                    roleInfo.append(`<p>生日: ${role.birthday}</p>`);
+                    roleInfo.append(`<p>性别: ${role.sex}</p>`);
+                    roleInfo.append(`<p>冷却时间: ${role.cd}</p>`);
+                    roleInfo.append(`<p>技能描述: ${role.jinengjieshao}</p>`);
+                    roleInfo.append(`<p>被动效果: ${role.beidong}</p>`);
+    
+                    // 隐藏角色信息
+                    roleInfo.hide();
+    
+                    // 右键点击图片时显示角色信息
+                    img.contextmenu(function(event) {
+                        event.preventDefault(); // 阻止默认的右键菜单
+                        roleInfo.show();
+                    });
+    
+                    // 点击其他地方时隐藏角色信息
+                    $(document).click(function(event) {
+                        if (!roleInfo.is(event.target) && roleInfo.has(event.target).length === 0) {
+                            roleInfo.hide();
+                        }
+                    });
+    
+                    img.click(function() {
+                        const pinyin = $(this).data('pinyin'); // 使用 .data() 获取拼音
+                        console.log('点击角色的拼音:', pinyin); // 打印拼音
+    
+                        $(this).toggleClass('selected');
+                    });
+    
+                    roleDiv.append(img);
+                    roleDiv.append(roleInfo);
+    
+                    $('.role').append(roleDiv);
+                });
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                console.error("加载 JSON 文件失败:", textStatus, errorThrown);
+            });
+    
+            // 角色选择完成后，根据保存的难度信息进行页面跳转
+            $('#start-game-link').click(function(event) {
+                event.preventDefault(); // 阻止默认的跳转动作
+    
+                // 获取从localStorage中存储的难度信息
+                const difficulty = localStorage.getItem('selectedDifficulty');
+                const selectedRoles = $('.role-item img.selected');
+                const roleData = [];
+                selectedRoles.each(function() {
+                    const role = {
+                        name: $(this).attr('alt'),
+                        pic: $(this).attr('src'),
+                        pinyin: $(this).data('pinyin') // 获取拼音数据
+                    };
+                    roleData.push(role);
+                });
+    
+                const roleNamePinyin = roleData.map(role => role.pinyin);
+                const queryParams = $.param({ namePinyin: roleNamePinyin, difficulty });
+                console.log('角色数据:', roleData);
+                console.log('查询参数:', queryParams);
+    
+                // 根据难度信息跳转到相应的页面
+                if (difficulty) {
+                    switch (difficulty) {
+                        case '简单':
+                            window.location.href = 'jiandan.html?' + queryParams;
+                            break;
+                        case '困难':
+                            window.location.href = 'kunnan.html?' + queryParams;
+                            break;
+                        case '噩梦':
+                            window.location.href = 'emeng.html?' + queryParams;
+                            break;
+                        case '自定义':
+                            window.location.href = 'zidingyi.html?' + queryParams;
+                            break;
+                        default:
+                            console.error('未知的难度级别:', difficulty);
+                            alert('请选择一个难度级别再开始游戏');
+                    }
+                } else {
+                    console.error('难度级别未选择');
+                    alert('请选择一个难度级别再开始游戏');
+                }
+            });
+        });
+    </script>    
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册 - 音游</title>
+    <script>
+        function register() {
+            const username = document.getElementById('register-username').value;
+            const password = document.getElementById('register-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+
+            if (password === confirmPassword) {
+                // 假设这里会向后端发送注册请求
+                alert('注册成功！');
+                window.location.href = 'login.html'; // 跳转到登录页面
+            } else {
+                alert('密码不一致');
+            }
+        }
+    </script>
+</head>
+<body>
+    <h2>注册</h2>
+    <form onsubmit="event.preventDefault(); register();">
+        <label for="register-username">用户名:</label>
+        <input type="text" id="register-username" required><br><br>
+
+        <label for="register-password">密码:</label>
+        <input type="password" id="register-password" required><br><br>
+
+        <label for="confirm-password">确认密码:</label>
+        <input type="password" id="confirm-password" required><br><br>
+
+        <button type="submit">注册</button>
+    </form>
+</body>
+</html>

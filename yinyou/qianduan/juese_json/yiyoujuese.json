@@ -1,0 +1,35 @@
+[{
+    "name":"苡初","pinyin":"yichu","birthday":"2025.01.10","sex":"女","pic":"image/yichu.png",
+    "cd":"50s（连击获能可用）",
+    "jinengjieshao":"一切的开始：到使用技能时间，技能分是到使用技能时间*80%，将之前分数变成已有分*60%加技能分*40%",
+    "beidong":"初始旋律：分数在按第一个键后20秒分数是原获得*1.25（共6级，时间+=20，分数*=1.25）",
+    "beijing":""
+},
+{
+    "name":"惜时","pinyin":"xishi","birthday":"2024.02.29","sex":"女","pic":"image/xishi.png",
+    "cd":"50s（连击获能可用）",
+    "jinengjieshao":"时间的一瞬：使用技能，停止n秒时间，再用解除",
+    "beidong":"一瞬之息：n=5(共6级，时间+=5)",
+    "beijing":""
+},
+{
+    "name":"铭铎","pinyin":"mingduo","birthday":"2024.08.25","sex":"男","pic":"image/mingduo.png",
+    "cd":"50s（连击获能可用）",
+    "jinengjieshao":"那刻的留存：使用技能，刷新下一个上场角色技能",
+    "beidong":"依在：上场角色cd本局永久减20s，场下角色cd本局永久减10s",
+    "beijing":""
+},
+{
+    "name":"灵媒","pinyin":"lingmei","birthday":"2024.09.15","sex":"女","pic":"image/lingmei.png",
+    "cd":"50s（连击获能可用）",
+    "jinengjieshao":"机械世纪：使用技能，自动演奏25秒",
+    "beidong":"修理：充能10%（共6级，充能+=5%）",
+    "beijing":""
+},
+{
+    "name":"连韵","pinyin":"lianyun","birthday":"2026.06.28","sex":"女","pic":"image/lianyun.png",
+    "cd":"100s（连击获能可用）",
+    "jinengjieshao":"音律连奏：使用技能，连击*2的加，分数变成原分*1.5",
+    "beidong":"韵律共鸣：本局所有人有5%的概率获得连击*1.5的加（共6级，概率+=5%）",
+    "beijing":""
+}]

@@ -1,0 +1,61 @@
+/* reset3.css */
+
+/*这个类 .fl 用于将元素浮动到左侧*/
+.fl{
+    float: left;
+}
+/*这个类 .fr 用于将元素浮动到右侧*/
+.fr{
+    float: right;
+}
+/*对于 body 和所有标题标签 (h1 到 h6) 以及段落标签 (p)，
+设置它们的外边距为 0，以消除默认的外边距*/
+body,p,h1,h2,h3,h4,h5,h6{
+    margin:0;
+    color: #06ecfd;
+}
+/*针对无序列表 (ul)，去掉默认的列表样式（如圆点），并将外边距和内边距都设置为 0。*/
+ul{
+    list-style:none;
+    margin: 0;
+    padding: 0;
+}
+/*对于所有图片 (img)，去掉默认的边框，并将垂直对齐方式设置为中间。*/
+img{
+    border:none;
+    vertical-align: middle;
+}
+/*针对超链接 (a)，去掉下划线，并将文本颜色设置为 #3c3c3c。*/
+a{
+    text-decoration:none;
+    color:#3c3c3c;
+}
+/*斜体标签 (i) 的字体样式被设置为正常，不显示斜体效果。*/
+i{
+    font-style: normal;
+}
+/*对于所有输入框 (input) 和按钮 (button)，将外边距和内边距都设置为 0。*/
+input,button{
+    margin: 0;
+    padding: 0;
+}
+/*对于按钮 (button)，去掉默认的轮廓样式。*/
+button{
+    outline: none;
+}
+/*设置 body 的字体为 12px 大小，行高为 1.5，并定义了一系列字体（优先使用 Tahoma，其次是 Arial 和其他字体）。
+文本颜色为深灰色 (#3c3c3c)，背景颜色为淡灰色 (#f4f4f4)。*/
+body{
+    font :15px/1.5 tahoma,arial,'Hiragino Sans GB','Microsoft Sans GB','\5B8b\4f53',sans-serif;
+    background-color: #f4f4f4;
+    background-image: url(#);
+    background-attachment: fixed;
+    margin: 0;
+    background-size: cover;
+}
+/*.clearfix 类在之后的元素生成一个块级元素，利用这个块级元素来清除浮动，使得包含浮动元素的父元素能够正确高度*/
+.clearfix:after{
+    content: "";
+    display: block;
+    clear: both;
+}

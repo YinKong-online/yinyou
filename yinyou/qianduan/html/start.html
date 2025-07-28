@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>音游-开始游戏</title>
+    <link rel="stylesheet" href="css/index2.css">
+</head>
+<body>
+    <div class="xuanzhe fl">
+        <div class="title"><h1>选择难度</h1></div>
+        <a href="#" class="difficulty-link"><div class="jiandan"><h1>简单</h1></div></a>
+        <a href="#" class="difficulty-link"><div class="kunnan"><h1>困难</h1></div></a>
+        <a href="#" class="difficulty-link"><div class="emeng"><h1>噩梦</h1></div></a>
+        <a href="#" class="difficulty-link"><div class="zidingyi"><h1>自定义</h1></div></a>
+    </div>
+    <!--当前音伴属性-->
+    <div class="xingxi fr">
+        <table>
+            <thead>  
+                <tr>
+                    <th>名字：</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>容错率加成：</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <th>得分加成：</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <th>判定范围加成：</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <th>连击加成：</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <th>连击倍率：</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <th>技能冷却：</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <th>特殊技能：</th>
+                    <th></th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.querySelectorAll('.xuanzhe.fl a').forEach(function(link) {
+            link.addEventListener('click', function(event) {
+                event.preventDefault(); // 阻止默认的跳转动作
+
+                // 获取难度级别并保存到localStorage
+                const difficulty = this.querySelector('div').innerText;
+                localStorage.setItem('selectedDifficulty', difficulty);
+
+                // 手动跳转到角色选择页面
+                window.location.href = 'xuanjuese.html';
+            });
+        });
+    </script>
+</body>
+</html>

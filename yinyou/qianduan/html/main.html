@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>音游</title>
+    <link rel="stylesheet" href="css/index1.css">
+</head>
+<body>
+    <!--导航-->
+    <div class="nav" >
+        <div class="fl">
+            <ul>
+                <li><img id="touxiang" src="img\loge.jpg" alt="头像"></img></li>
+            </ul>
+        </div>
+        <div class="fl">
+            <ul>
+                <li><h2 id="username-display">用户名</h2></li>
+                <li><h2>等级：<span id="level-display"></span></h2></li>
+            </ul>
+        </div>
+        <div class="fr" id="login-section">
+            <ul>
+                <li><a href="denglu.html"><h2>登录</h2></a></li>
+                <li><a href="zhuce.html"><h2>注册</h2></a></li>
+            </ul>
+        </div>
+        <div class="fr">
+            <ul>
+                <li><a href="#"><h2>币1</h2></a></li>
+                <li><a href="#"><h2>币2</h2></a></li>
+                <li><a href="#"><h2>信箱</h2></a></li>
+                <li><a href="#"><h2>设置</h2></a></li>
+            </ul>
+    </div>
+    <!--登录首页主体-->
+    <div class="clearfix"></div>
+    <div class="zhuti">
+        <span class="fl">
+            <div class="huodong"><a href="#"><img src="#" alt="活动"></a></div>
+            <div class="putong"><a href="start.html">开始游戏</a></div>
+            <div class="moshi">
+                <span id="juqing"><a href="#">剧情模式</a></span>
+                <span id="pipei"><a href="#">匹配模式</a></span>
+            </div>
+            <div class="shangcheng"><a href="shangcheng.html">商城</a></div>
+            <div class="chengjiu"><a href="#">我的成就</a></div>
+        </span>
+        <span class="fr">
+            <a href="yangcheng.html"><img id="juese" src="img\loge.jpg" alt="角色"></a>
+        </span>
+    </div>
+    <script>
+        // 检查是否已登录
+        function checkLoginStatus() {
+            const username = localStorage.getItem('username');
+            if (username) {
+                document.getElementById('login-section').style.display = 'none'; // 隐藏登录部分
+                document.getElementById('user-info').style.display = 'block'; // 显示用户名和等级
+            } else {
+                document.getElementById('login-section').style.display = 'block'; // 显示登录部分
+                document.getElementById('user-info').style.display = 'none'; // 隐藏用户名和等级
+            }
+        }
+
+        // 模拟登录
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // 假设这里会向后端发送请求验证用户名和密码
+            if (username && password) {
+                localStorage.setItem('username', username); // 存储用户名
+                localStorage.setItem('level', '1'); // 假设等级为1
+                checkLoginStatus(); // 更新页面
+            } else {
+                alert('请输入有效的用户名和密码');
+            }
+        }
+
+        // 模拟登出
+        function logout() {
+            localStorage.removeItem('username');
+            localStorage.removeItem('level');
+            checkLoginStatus(); // 更新页面
+        }
+
+        window.onload = checkLoginStatus; // 页面加载时检查登录状态
+        
+        // 设置用户信息显示
+        if (localStorage.getItem('username')) {
+            document.getElementById('username-display').textContent = localStorage.getItem('username');
+            document.getElementById('level-display').textContent = localStorage.getItem('level');
+        }
+    </script>
+</body>
+</html>

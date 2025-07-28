@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>音游-噩梦</title>
+    <link rel="stylesheet" href="css/index3.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <!--导航栏-->
+    <div class="nav">
+        <div class="fl">
+            <ul>
+                <li><img id="touxiang" src="img/loge.jpg" alt="头像" /></li>
+            </ul>
+        </div>
+        <div class="fl">
+            <ul>
+                <li><h2>用户名</h2></li>
+                <li><h2>等级</h2></li>
+            </ul>
+        </div>
+        <div class="fr" style="margin-right: 20px; margin-top: 10px;">
+            <div style="color: black;">没找到你想要的音乐？</div>
+            <input type="text" placeholder="搜索" style="width: 200px;height: 20px;">
+            <span class="tubiao">&#xe610;</span>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <!--内容-->
+    <div class="yinyue">
+        <span class="tubiao1 fl">&#xe660;</span>
+        <div id="yinyue_title"></div>
+        <span class="tubiao2 fr">&#xe661;</span>
+    </div>
+
+    <script>
+        let yinyue_title = [];
+        let count = 0;
+
+        function addMusic_jiandan(imageUrl, name) {
+            const img = document.createElement("img");
+            img.src = imageUrl;
+            img.setAttribute('data-name', name);
+            img.addEventListener("click", function() {
+                const selectedName = this.getAttribute('data-name');
+                if (selectedName) {
+                    $.post('http://localhost:5000/start_game/ememg', { name: selectedName }, function(response) {
+                        if (response.error) {
+                            alert(response.error);
+                        } else {
+                            console.log('游戏已启动:', response);
+                        }
+                    });
+                } else {
+                    alert('请先选择一首歌曲');
+                }
+            });
+            yinyue_title.push(img);
+            updateMusic_jiandan();
+        }
+
+        function updateMusic_jiandan() {
+            const yinyue_title_html = document.getElementById("yinyue_title");
+            yinyue_title_html.innerHTML = "";
+            const numImages = Math.min(4, yinyue_title.length);
+            for (let i = 0; i < numImages; i++) {
+                const index = (count + i) % yinyue_title.length;
+                yinyue_title_html.appendChild(yinyue_title[index]);
+            }
+        }
+        
+        const tubiao1 = document.querySelector(".tubiao1");
+        tubiao1.addEventListener("click", () => {
+            count = (count - 1 + yinyue_title.length) % yinyue_title.length; 
+            updateMusic_jiandan();
+        });
+
+        const tubiao2 = document.querySelector(".tubiao2");
+        tubiao2.addEventListener("click", () => {
+            count = (count + 1) % yinyue_title.length; 
+            updateMusic_jiandan();
+        });
+
+        fetch('https://yinkong-online.github.io/yinyou/chuli1.json') 
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('网络响应失败');
+                }
+                return response.json();
+            })
+            .then(data => {
+                data.forEach(item => {
+                    addMusic_jiandan(item.pic, item.name); 
+                });
+            })
+            .catch(error => console.error('加载JSON文件失败:', error));
+    </script>
+</body>
+</html>

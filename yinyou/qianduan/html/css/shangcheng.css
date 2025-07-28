@@ -1,0 +1,8 @@
+@import 'reset1.css';
+@font-face {
+    font-family: 'iconfont';  /* Project id 4797798 */
+    src: 
+         url('//at.alicdn.com/t/c/font_4797798_brcx9papbl.woff2?t=1735468007512') format('woff2'),
+         url('//at.alicdn.com/t/c/font_4797798_brcx9papbl.woff?t=1735468007512') format('woff'),
+         url('//at.alicdn.com/t/c/font_4797798_brcx9papbl.ttf?t=1735468007512') format('truetype');
+}
